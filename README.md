@@ -1,4 +1,4 @@
-# Basic Reason Template
+# Eval Worker
 
 This module evals a string in a Web Worker.
 
