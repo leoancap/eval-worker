@@ -1,12 +1,16 @@
 # Eval Worker
 
-This module evals a string in a Web Worker.
+This module evaluates a string in a Web Worker.
 
 # Example
 
 ```
 const evalWorker = require("eval-worker")
 
-console.log(evalWorker("2+3")) // 5
-console.log(evalWorker("while(true){}")) // It is Timed out after 2 seconds
+evalWorker("2+3", 2000, result => {
+  console.log(result) // 5
+}))
+evalWorker("while(true){}", 2000, result => {
+  console.log(result) // It is timed out after 2 seconds
+}))
 ```
