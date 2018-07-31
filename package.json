@@ -1,6 +1,6 @@
 {
   "name": "eval-worker",
-  "version": "1.0.3",
+  "version": "1.0.7",
   "description": "",
   "main": "index.js",
   "keywords": [
@@ -13,5 +13,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Leonardo Sao Thiago",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "worker-loader": "^2.0.0"
+  }
 }

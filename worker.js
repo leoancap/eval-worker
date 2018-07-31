@@ -14,5 +14,5 @@ try {
     }
   }
 } catch (error) {
-  postMessage({ ...error })
+  postMessage(error)
 }

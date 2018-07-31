@@ -1,22 +1,25 @@
-module.exports = function runCode(code, timeout, callback) {
+function evalWorker(code, timeout, callback) {
   const Worker = require("./worker.js")
   var worker = new Worker()
-  var msg = {}
-  var t = setTimeout(() => {
+  var workerTimeout = setTimeout(() => {
+    // kill Worker
     worker.terminate()
     worker = null
-    msg = {
+    callback({
       error: "Timed out",
-    }
-    callback(msg)
+    })
   }, timeout | 2000)
 
   worker.onmessage = m => {
-    clearTimeout(t)
-    console.log(m.data)
-    callback(m.data)
+    clearTimeout(workerTimeout)
+
+    // Kill Worker
     worker.terminate()
     worker = null
+
+    callback(m.data)
   }
   worker.postMessage(code)
 }
+
+module.exports = evalWorker
