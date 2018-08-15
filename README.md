@@ -7,12 +7,12 @@ This module evaluates a string in a Web Worker.
 ```
 const evalWorker = require("eval-worker")
 
-evalWorker("2+3", 2000, result => {
+evalWorker("2+3", 2000).then(result => {
   console.log(result) // 5
-}))
-evalWorker("while(true){}", 2000, result => {
+})
+evalWorker("while(true){}", 2000).then(result => {
   console.log(result) // It is timed out after 2 seconds
-}))
+})
 ```
 
 ### Usage with Webpack
