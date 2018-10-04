@@ -1,34 +1,37 @@
-function evalWorker(code, timeout) {
-  return new Promise((res, rej) => {
-    const Worker = require("./worker.js")
-    var worker = new Worker()
-    var workerTimeout = setTimeout(() => {
-      // kill Worker
-      worker.terminate()
-      worker = null
-      rej({
-        error: "Timed out",
-      })
-    }, timeout | 2000)
+"use strict";
 
-    worker.onmessage = m => {
-      clearTimeout(workerTimeout)
+function evalWorker(code, timeout) {
+  return new Promise(function(res, rej) {
+    var Worker = require("./worker.js");
+    var worker = new Worker();
+    var workerTimeout = setTimeout(function() {
+      // kill Worker
+      worker.terminate();
+      worker = null;
+      rej({
+        error: "Timed out"
+      });
+    }, timeout | 2000);
+
+    worker.onmessage = function(m) {
+      clearTimeout(workerTimeout);
 
       // Kill Worker
-      worker.terminate()
-      worker = null
+      worker.terminate();
+      worker = null;
       if (m.data) {
         if (m.data.hasOwnProperty("error")) {
-          rej(m.data)
+          rej(m.data);
         } else {
-          res(m.data)
+          res(m.data);
         }
       } else {
-        res(m.data)
+        res(m.data);
       }
-    }
-    worker.postMessage(code)
-  })
+    };
+    worker.postMessage(code);
+  });
 }
 
-module.exports = evalWorker
+module.exports = evalWorker;
+
